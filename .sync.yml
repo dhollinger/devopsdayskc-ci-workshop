@@ -1,0 +1,35 @@
+---
+appveyor.yml:
+  delete: true
+.travis.yml:
+  delete: true
+.gitlab-ci.yml:
+  unmanaged: true
+.fixtures.yml:
+  unmanaged: true
+Gemfile:
+  required:
+    ':system_tests':
+      - gem: 'puppet-module-posix-system-r#{minor_version}'
+        platforms: ruby
+      - gem: 'puppet-module-win-system-r#{minor_version}'
+        platforms:
+          - mswin
+          - mingw
+          - x64_mingw
+      - gem: beaker
+        version: '~> 4.0'
+        from_env: BEAKER_VERSION
+      - gem: beaker-pe
+      - gem: beaker-docker
+      - gem: beaker-puppet
+      - gem: beaker-hostgenerator
+        from_env: BEAKER_HOSTGENERATOR_VERSION
+      - gem: beaker-rspec
+        from_env: BEAKER_RSPEC_VERSION
+    ':release':
+      - gem: 'puppet-blacksmith'
+        platforms: ruby
+      - gem: 'puppet-strings'
+        platforms: ruby
+
